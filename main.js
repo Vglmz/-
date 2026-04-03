@@ -50,7 +50,7 @@ const AUDIO = {
 
     init() {
         if (this.initialized) return;
-        this.bgMusic = new Audio('assets/audio/bg.mp3');
+        this.bgMusic = new Audio('./assets/audio/bg.mp3');
         this.bgMusic.loop = true;
         this.bgMusic.volume = 0.4;
         this.initialized = true;
@@ -74,9 +74,9 @@ const AUDIO = {
 
     playSound(soundName) {
         const soundMap = {
-            'click': 'assets/audio/click.mp3',
-            'jump': 'assets/audio/jump.mp3',
-            'coin': 'assets/audio/coin.mp3',
+            'click': './assets/audio/click.mp3',
+            'jump': './assets/audio/jump.mp3',
+            'coin': './assets/audio/coin.mp3',
         };
 
         if (soundMap[soundName]) {
