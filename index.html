@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>GameBoy Ela :3</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="game-container">
+        <!-- GameBoy Screen -->
+        <div class="gameboy-body">
+            <div class="screen-container">
+                <div class="screen">
+                    <canvas id="gameCanvas" width="160" height="144"></canvas>
+                    <div id="screenContent" class="screen-content">
+                        <!--  --><img id="screenImage" src="" alt="Game Screen" class="screen-image">
+                        <div id="textOverlay" class="text-overlay"></div>
+                    </div>                    <div id="mapSelector" class="map-selector" style="display: none;">
+                        <div class="map-card">
+                            <p>Selecciona el mundo hermosa</p>
+                            <div class="map-buttons">
+                                <button class="map-world" data-world="1">Mundo 1</button>
+                                <button class="map-world" data-world="2">Mundo 2</button>
+                                <button class="map-world" data-world="3">Mundo 3</button>
+                                <button class="map-world" data-world="4">Mundo 4</button>
+                                <button class="map-world" data-world="5">Mundo 5</button>
+                            </div>
+                        </div>
+                    </div>                </div>
+            </div>
+
+            <!-- GameBoy UI Elements -->
+            <div class="gameboy-ui">
+                <div class="speaker"></div>
+                <div class="indicator-lights">
+                    <div class="light green"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Touch Controls -->
+        <div class="controls-container">
+            <div class="buttons-row">
+                <button id="btnStart" class="btn btn-start" data-action="start">
+                    <span class="btn-text">START</span>
+                </button>
+            </div>
+            
+            <div class="movement-controls" style="display: none;" id="movementControls">
+                <button id="btnLeft" class="btn btn-movement" data-action="left">⬅</button>
+                <button id="btnRight" class="btn btn-movement" data-action="right">➡</button>
+                <button id="btnJump" class="btn btn-jump" data-action="jump">A</button>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btnA" class="btn btn-a" data-action="a">A</button>
+                <button id="btnB" class="btn btn-b" data-action="b">B</button>
+            </div>
+        </div>
+
+        <!-- Modal for Final Card -->
+        <div id="cardModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-card">
+                    <p id="cardText"></p>
+                    <button id="btnCloseCard" class="btn btn-modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restart Button (shown at the end) -->
+        <button id="btnRestart" class="btn btn-restart" style="display: none;">
+             Reiniciar yipiiii
+        </button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Audio placeholder - coin.mp3
+# Reemplazar por archivo MP3 real

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Placeholders Pixel Art</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #222;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 { color: #0f0; }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #0dd;
+        }
+        canvas {
+            border: 2px solid #0f0;
+            margin-top: 20px;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+        .info {
+            background: #333;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Generador de Placeholders Pixel Art</h1>
+        
+        <div>
+            <label>Nombre del archivo:</label>
+            <input type="text" id="filename" value="img1" placeholder="img1">
+            
+            <label>Tipo de imagen:</label>
+            <select id="type">
+                <option value="random">Random Pixel</option>
+                <option value="gradient">Gradient</option>
+                <option value="pattern">Pattern</option>
+                <option value="gameboy">GameBoy</option>
+            </select>
+            
+            <button onclick="generateImage()">Generar Placeholder 256x256</button>
+            <button onclick="generateAndDownload()">Descargar PNG</button>
+        </div>
+
+        <canvas id="canvas" width="256" height="256"></canvas>
+
+        <div class="info">
+            <h3>📋 Instrucciones:</h3>
+            <ul>
+                <li>Selecciona el estilo de placeholder deseado</li>
+                <li>Presiona "Generar Placeholder"</li>
+                <li>Una vez satisfecho, presiona "Descargar PNG"</li>
+                <li>Coloca el archivo en la carpeta correspondiente (mundo1/, mundo2/, etc.)</li>
+                <li>Si quieres, puedes usar estos placeholders para testing rápido</li>
+            </ul>
+            
+            <h3>📁 Dónde guardar:</h3>
+            <pre>
+assets/images/
+├── intro/
+│   ├── img1.png
+│   └── img2.png
+├── mundo1/
+│   ├── img1.png through img6.png
+├── mundo2/
+│   ├── img1.png through img7.png
+├── mundo3/
+│   ├── img1.png through img3.png
+├── mundo4/
+│   ├── intro1.png
+│   └── intro2.png
+├── mundo5/
+│   ├── img1.png through img12.png
+└── map.png
+            </pre>
+
+            <h3>💡 Tips:</h3>
+            <ul>
+                <li>Estos placeholders son solo para testing</li>
+                <li>Reemplázalos con imágenes reales pixel art cuando tengas listas</li>
+                <li>Puedes usar Aseprite, GIMP, o Piskel para crear imágenes reales</li>
+                <li>Mantén proporciones cuadradas (256x256, 512x512, etc.)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function generateImage() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const type = document.getElementById('type').value;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            switch(type) {
+                case 'random':
+                    generateRandomPixels(ctx, canvas.width, canvas.height);
+                    break;
+                case 'gradient':
+                    generateGradient(ctx, canvas.width, canvas.height);
+                    break;
+                case 'pattern':
+                    generatePattern(ctx, canvas.width, canvas.height);
+                    break;
+                case 'gameboy':
+                    generateGameBoy(ctx, canvas.width, canvas.height);
+                    break;
+            }
+        }
+
+        function generateRandomPixels(ctx, w, h) {
+            const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+            const blockSize = 16;
+            
+            for (let y = 0; y < h; y += blockSize) {
+                for (let x = 0; x < w; x += blockSize) {
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    ctx.fillStyle = color;
+                    ctx.fillRect(x, y, blockSize, blockSize);
+                }
+            }
+        }
+
+        function generateGradient(ctx, w, h) {
+            const gradient = ctx.createLinearGradient(0, 0, w, h);
+            gradient.addColorStop(0, '#FF0000');
+            gradient.addColorStop(0.5, '#00FF00');
+            gradient.addColorStop(1, '#0000FF');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, w, h);
+
+            // Agregar grid pixel
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 1;
+            const blockSize = 16;
+            for (let i = 0; i <= w; i += blockSize) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i <= h; i += blockSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+        }
+
+        function generatePattern(ctx, w, h) {
+            const blockSize = 16;
+            const pattern1 = '#1a1a1a';
+            const pattern2 = '#0f0';
+
+            for (let y = 0; y < h; y += blockSize) {
+                for (let x = 0; x < w; x += blockSize) {
+                    const color = ((x + y) / blockSize) % 2 === 0 ? pattern1 : pattern2;
+                    ctx.fillStyle = color;
+                    ctx.fillRect(x, y, blockSize, blockSize);
+                }
+            }
+        }
+
+        function generateGameBoy(ctx, w, h) {
+            // Fondo GameBoy verde
+            ctx.fillStyle = '#1a2f1a';
+            ctx.fillRect(0, 0, w, h);
+
+            // Algunos píxeles aleatorios de contraste
+            const blockSize = 32;
+            ctx.fillStyle = '#0f0';
+            for (let i = 0; i < 10; i++) {
+                const x = Math.random() * w;
+                const y = Math.random() * h;
+                ctx.fillRect(x, y, blockSize, blockSize);
+            }
+
+            // Grid de pixels
+            ctx.strokeStyle = 'rgba(0, 255, 0, 0.2)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= w; i += 8) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, h);
+                ctx.stroke();
+            }
+            for (let i = 0; i <= h; i += 8) {
+                ctx.beginPath();
+                ctx.moveTo(0, i);
+                ctx.lineTo(w, i);
+                ctx.stroke();
+            }
+
+            // Texto
+            ctx.fillStyle = '#0f0';
+            ctx.font = 'bold 24px Courier';
+            ctx.textAlign = 'center';
+            ctx.fillText('PLACEHOLDER', w / 2, h / 2);
+        }
+
+        function generateAndDownload() {
+            const canvas = document.getElementById('canvas');
+            const filename = document.getElementById('filename').value || 'img1';
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename + '.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // Generar una imagen por defecto al cargar
+        window.onload = () => generateImage();
+    </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Audio placeholder - click.mp3
+# Reemplazar por archivo MP3 real

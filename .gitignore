@@ -1,0 +1,33 @@
+# Ignored files and directories
+
+# Audio files (large)
+assets/audio/*.mp3
+
+# Images (if you want to keep them separate)
+# assets/images/
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# System files
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# Build
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
