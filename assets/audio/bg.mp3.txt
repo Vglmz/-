@@ -1,2 +1,0 @@
-# Audio placeholder - bg.mp3
-# Reemplazar por archivo MP3 real

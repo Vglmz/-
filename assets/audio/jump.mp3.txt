@@ -1,2 +1,0 @@
-# Audio placeholder - jump.mp3
-# Reemplazar por archivo MP3 real
